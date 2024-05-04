@@ -1,3 +1,5 @@
 libsvl.a
+libsvl.so
+libsvl.dll
 obj
 tests/*/test

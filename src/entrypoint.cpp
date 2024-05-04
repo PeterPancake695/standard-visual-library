@@ -1,15 +1,22 @@
-#include "application.hpp"
+#include "svl.hpp"
 #include <cstdlib>
 #include <exception>
 #include <iostream>
 
-int main (int argc, char *argv[]) {
-  application app;
+#ifdef _WIN32
+
+#else
+
+int main(int argc, char *argv[]) {
   try {
-  app.run();
+    auto app = svl::CreateApplication();
+    app->run();
+    delete app;
   } catch (std::exception &e) {
     std::cerr << e.what() << std::endl;
     return EXIT_FAILURE;
-  } 
+  }
   return EXIT_SUCCESS;
 }
+
+#endif

@@ -1,16 +1,17 @@
 ifeq ($(OS), Windows_NT)
-    CXX = g++
-    AR = ar
-    CXXFLAGS = -std=c++17 -Wall -Wextra -O2 -march=native -mtune=native -ftree-vectorize
-    ARFLAGS = rcs
+  CXX = g++
+  CXXFLAGS = -std=c++17 -Wall -Wextra -O2 -march=native -mtune=native -ftree-vectorize -DSVL_BUILD_LIB
+  LIBRARY = libsvl.dll
+  LDFLAGS = -shared
+  INSTALL =	
 else
-    CXX = g++
-    AR = ar
-    CXXFLAGS = -std=c++17 -Wall -Wextra -O2 -march=native -mtune=native -ftree-vectorize
-    ARFLAGS = rcs
+  CXX = g++
+  CXXFLAGS = -std=c++17 -Wall -Wextra -O2 -march=native -mtune=native -ftree-vectorize -fPIC -DSVL_BUILD_LIB
+  LIBRARY = libsvl.so
+  LDFLAGS = -shared
+  INSTALL = sudo cp libsvl.so /usr/lib/libsvl.so
 endif
 
-LIBRARY = libsvl.a
 SRCDIR = src
 OBJDIR = obj
 
@@ -23,15 +24,18 @@ $(shell mkdir -p $(OBJDIR))
 all: $(LIBRARY)
 
 $(LIBRARY): $(OBJ)
-		$(AR) $(ARFLAGS) $@ $^
+	$(CXX) $(LDFLAGS) -o $@ $^
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(HDR)
-		mkdir -p $(dir $@)
-		$(CXX) $(CXXFLAGS) -c $< -o $@
+	mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-		rm -f $(LIBRARY)
-		rm -rf $(OBJDIR)
+	rm -f $(LIBRARY)
+	rm -rf $(OBJDIR)
 
-.PHONY: all clean
+install: all
+	$(INSTALL)
+
+.PHONY: all clean install
 
