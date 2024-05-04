@@ -1,12 +1,12 @@
 ifeq ($(OS), Windows_NT)
   CXX = g++
-  CXXFLAGS = -std=c++17 -Wall -Wextra -O2 -march=native -mtune=native -ftree-vectorize -DSVL_BUILD_LIB
+  CXXFLAGS = -std=c++17 -Wall -Wextra -O2 -march=native -mtune=native -ftree-vectorize -DSVL_BUILD_LIB -I ./vendor/spdlog/include
   LIBRARY = libsvl.dll
   LDFLAGS = -shared
   INSTALL =	
 else
   CXX = g++
-  CXXFLAGS = -std=c++17 -Wall -Wextra -O2 -march=native -mtune=native -ftree-vectorize -fPIC -DSVL_BUILD_LIB
+  CXXFLAGS = -std=c++17 -Wall -Wextra -O2 -march=native -mtune=native -ftree-vectorize -fPIC -DSVL_BUILD_LIB -I ./vendor/spdlog/include
   LIBRARY = libsvl.so
   LDFLAGS = -shared
   INSTALL = sudo cp libsvl.so /usr/lib/libsvl.so
