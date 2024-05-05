@@ -1,5 +1,6 @@
-libsvl.a
+bin
+bin-obj
 libsvl.so
 libsvl.dll
-obj
-tests/*/test
+Makefile
+svl.make

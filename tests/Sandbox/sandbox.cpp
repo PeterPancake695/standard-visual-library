@@ -1,4 +1,5 @@
 #include "sandbox.hpp"
+#include "../../src/svlentry.hpp"
 
 Sandbox::Sandbox() {}
 
